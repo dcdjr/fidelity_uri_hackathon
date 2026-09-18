@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0c0d" />
+    <title>FundLens — See what you own</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#">FundLens<span>·</span></a>
+        <div class="top-actions">
+          <button class="text-button" id="editPortfolioButton">Edit portfolio</button>
+          <button class="text-button" id="settingsButton">Settings</button>
+          <button class="account-button" id="googleSignIn"><span class="google-mark">G</span><span id="accountLabel">Sign in with Google</span></button>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Portfolio intelligence</p>
+          <h1>See what you<br />actually own.</h1>
+          <p class="subhead">Look through funds, find hidden overlap, and understand your real exposure.</p>
+        </div>
+        <div class="as-of"><span class="live-dot"></span> Portfolio data · Sep 18, 2026</div>
+      </section>
+
+      <section class="snapshot" aria-label="Portfolio summary">
+        <div class="metric total"><span class="label">Portfolio value</span><strong id="portfolioValue">$84,260.00</strong><span id="portfolioNote">Your saved positions</span></div>
+        <div class="metric"><span class="label">Positions</span><strong id="positionCount">8</strong><span>Manually entered</span></div>
+        <div class="metric"><span class="label">Top company</span><strong>NVIDIA</strong><span>8.4% effective weight</span></div>
+        <div class="metric risk"><span class="label">Diversification</span><strong>72 <small>/ 100</small></strong><span>Good · room to improve</span></div>
+      </section>
+
+      <nav class="tabs" aria-label="Dashboard sections">
+        <button class="active" data-view="overview">Overview</button>
+        <button data-view="exposure">Exposure</button>
+        <button data-view="overlap">Overlap</button>
+      </nav>
+
+      <section class="dashboard" id="overviewView">
+        <div class="section-heading"><div><p class="eyebrow">Exposure</p><h2>Where your money lands</h2></div><button class="text-button" id="inlineEdit">Edit positions <span>↗</span></button></div>
+        <div class="exposure-grid">
+          <article class="card allocation-card">
+            <div class="card-title"><h3>Asset allocation</h3><span class="mono">100.0%</span></div>
+            <div class="donut-wrap"><div class="donut"><span><b>8</b><br />positions</span></div><ul class="legend"><li><i class="c1"></i>US equity <b>76.2%</b></li><li><i class="c2"></i>International equity <b>14.8%</b></li><li><i class="c3"></i>Fixed income <b>9.0%</b></li></ul></div>
+          </article>
+          <article class="card holdings-card">
+            <div class="card-title"><h3>Largest positions</h3><span class="mono">YOUR INPUT</span></div>
+            <div id="holdingsList"></div>
+          </article>
+        </div>
+
+        <div class="section-heading lower"><div><p class="eyebrow">Signals</p><h2>Worth a closer look</h2></div></div>
+        <div class="signal-grid">
+          <article class="signal warning"><div class="signal-number">01</div><div><p>Fund overlap</p><h3>42% of VOO and QQQ holdings overlap.</h3><span>Shared mega-cap exposure is driving your concentration.</span></div><button data-view="overlap">Inspect →</button></article>
+          <article class="signal"><div class="signal-number">02</div><div><p>Sector tilt</p><h3>Technology is 31.6% of your portfolio.</h3><span>That’s 4.1% above a broad US market weight.</span></div><button data-view="exposure">Explore →</button></article>
+        </div>
+      </section>
+
+      <section class="detail-view hidden" id="exposureView">
+        <div class="section-heading"><div><p class="eyebrow">Exposure</p><h2>Sector concentration</h2></div><span class="mono">WEIGHTED BY VALUE</span></div>
+        <article class="card table-card"><div class="sector-row head"><span>Sector</span><span>FundLens weight</span><span>US market</span><span>Difference</span></div><div class="sector-row"><span>Information technology</span><b>31.6%</b><span>27.5%</span><em>+4.1%</em></div><div class="sector-row"><span>Financials</span><b>14.2%</b><span>13.1%</span><em>+1.1%</em></div><div class="sector-row"><span>Health care</span><b>10.3%</b><span>11.2%</span><em class="muted">−0.9%</em></div><div class="sector-row"><span>Consumer discretionary</span><b>9.8%</b><span>10.2%</span><em class="muted">−0.4%</em></div><div class="sector-row"><span>Other sectors</span><b>34.1%</b><span>38.0%</span><em class="muted">−3.9%</em></div></article>
+      </section>
+
+      <section class="detail-view hidden" id="overlapView">
+        <div class="section-heading"><div><p class="eyebrow">Overlap</p><h2>Funds with shared holdings</h2></div><span class="mono">TOP 3 PAIRS</span></div>
+        <div class="overlap-list"><article class="card overlap-card"><div><span class="pair">VOO <i>×</i> QQQ</span><p>42% overlap by holdings</p></div><div class="overlap-meter"><i style="width:84%"></i></div><b>High</b></article><article class="card overlap-card"><div><span class="pair">VTI <i>×</i> VOO</span><p>31% overlap by holdings</p></div><div class="overlap-meter"><i style="width:62%"></i></div><b>Medium</b></article><article class="card overlap-card"><div><span class="pair">VXUS <i>×</i> VOO</span><p>4% overlap by holdings</p></div><div class="overlap-meter"><i style="width:8%"></i></div><b class="low">Low</b></article></div>
+      </section>
+
+      <section class="ask-panel">
+        <div class="ask-copy"><p class="eyebrow">FundLens AI</p><h2>Ask about your portfolio.</h2><p>Grounded in your holdings analysis. For education, not investment advice.</p></div>
+        <form id="askForm" class="ask-form"><input id="question" autocomplete="off" placeholder="How diversified is my portfolio?" /><button aria-label="Ask FundLens" type="submit">↑</button></form>
+        <div class="prompt-chips"><button>How much NVIDIA do I own?</button><button>Which funds overlap most?</button><button>Explain my tech exposure</button></div>
+        <article id="answer" class="answer hidden"><span class="answer-mark">FL</span><div><p class="eyebrow">Analysis</p><p id="answerText"></p></div></article>
+      </section>
+    </main>
+
+    <dialog id="portfolioDialog"><form method="dialog" class="settings portfolio-settings"><button class="close" value="close">×</button><p class="eyebrow">Your portfolio</p><h2>Enter the positions you hold.</h2><p>Saved only in this browser. Update or remove anything here whenever your portfolio changes.</p><label>Positions <span class="field-hint">Ticker, shares, current price — one position per line</span><textarea id="portfolioInput" rows="9" spellcheck="false" placeholder="VOO, 24, 590.20&#10;NVDA, 15, 172.30"></textarea></label><p class="input-example">Example: <code>VOO, 24, 590.20</code></p><button class="save" value="save">Save portfolio</button></form></dialog>
+    <dialog id="settingsDialog"><form method="dialog" class="settings"><button class="close" value="close">×</button><p class="eyebrow">Configuration</p><h2>Connect your services</h2><p>Keys stay in this browser only. For production, call Gemini from a secure server.</p><label>Google Client ID<input id="googleClientId" placeholder="...apps.googleusercontent.com" /></label><label>Gemini API key<input id="geminiApiKey" type="password" placeholder="AIza…" /></label><button class="save" value="save">Save settings</button></form></dialog>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
